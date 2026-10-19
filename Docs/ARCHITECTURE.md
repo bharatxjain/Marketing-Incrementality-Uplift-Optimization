@@ -136,6 +136,16 @@ Candidate models:
 - X-learner: alternative meta-learner for heterogeneous treatment effects.
 - Causal forest: estimates nonlinear treatment-effect heterogeneity.
 
+Base learners (implemented): every meta-learner accepts `base=` with three options, each used directly from its library:
+
+| Role | Base learner | Implementation |
+|---|---|---|
+| Baseline | Random Forest | `sklearn.ensemble.RandomForestRegressor` |
+| Primary candidate | XGBoost | `xgboost.XGBRegressor` (scikit-learn API) |
+| Efficiency benchmark | HistGradientBoosting | `sklearn.ensemble.HistGradientBoostingRegressor` (default) |
+
+`src/benchmark.py` and notebook 07 compare T-learners on all three with nested cross-validated, held-out policy value.
+
 The model API should return a documented estimate of treatment effect, plus uncertainty where the chosen method supports it. Do not imply that estimated conditional effects are observable individual-level ground truth.
 
 ### 3.4 Policy generation
@@ -267,15 +277,23 @@ This prevents a scenario projection from being mistaken for realized business im
 
 ```text
 data/raw/                  Original downloaded dataset (normally not committed)
-notebooks/01_data_audit.ipynb
-notebooks/02_experimental_analysis.ipynb
-notebooks/03_uplift_models.ipynb
-notebooks/04_policy_evaluation.ipynb
+notebooks/01_data_understanding_experimental_analysis.ipynb
+notebooks/02_baseline_models.ipynb
+notebooks/03_advanced_uplift_models.ipynb
+notebooks/04_policy_evaluation_optimization.ipynb
+notebooks/05_interactive_dashboard.ipynb
+notebooks/06_final_evaluation_reproducibility.ipynb
+notebooks/07_base_learner_study.ipynb
+src/config.py              Frozen experiment configuration
 src/data.py                Ingestion and validation
 src/inference.py           ATE and statistical analysis
-src/models.py              Baseline and uplift estimators
+src/models.py              Baseline and uplift estimators; RF / XGBoost / HistGB base learners
 src/evaluation.py          Ranking and policy evaluation
 src/optimization.py        Budget allocation and economics
+src/pipeline.py            Cross-fitting and fit-and-score
+src/scenario.py            Policy scenarios shared with the dashboard
+src/benchmark.py           Base-learner study (nested CV, timing)
+src/plotting.py            Shared chart style
 app/dashboard.py           Streamlit application
 tests/                     Unit tests and data-contract tests
 reports/                   Research report and executive summary

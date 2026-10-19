@@ -32,6 +32,31 @@ def test_cate_models_recover_heterogeneity(synthetic, key, params):
     assert abs(pred.mean() - tau.mean()) < 0.3
 
 
+@pytest.mark.parametrize("base", ["hgb", "rf", "xgb"])
+@pytest.mark.parametrize("key", ["t_learner", "x_learner", "dr_learner"])
+def test_base_learners_plug_into_meta_learners(synthetic, key, base):
+    X, t, y, tau = synthetic
+    extra = {"propensity": 0.5} if key != "t_learner" else {}
+    pred = models.make_model(key, seed=0, base=base, min_samples_leaf=50, **extra).fit(X, t, y).predict(X)
+    assert spearmanr(pred, tau)[0] > 0.5
+    assert abs(pred.mean() - tau.mean()) < 0.3
+
+
+def test_unknown_base_learner_fails():
+    with pytest.raises(ValueError, match="unknown base learner"):
+        models.base_regressor(base="svm")
+
+
+@pytest.mark.parametrize("base", ["hgb", "rf", "xgb"])
+def test_response_model_base_learners(base):
+    rng = np.random.default_rng(2)
+    X = pd.DataFrame({"x": rng.normal(size=4000)})
+    t = rng.integers(0, 2, 4000)
+    y = ((X.x > 0) & (t == 1)).astype(int)
+    p = models.ResponseModel(seed=0, base=base, min_samples_leaf=20).fit(X, t, y).predict(X)
+    assert p[X.x > 1].mean() > p[X.x < -1].mean() + 0.5
+
+
 def test_causal_forest_intervals(synthetic):
     X, t, y, _ = synthetic
     cf = models.CausalForest(seed=0, n_estimators=100, min_samples_leaf=20).fit(X, t, y)

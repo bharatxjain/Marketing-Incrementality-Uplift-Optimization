@@ -15,26 +15,59 @@ from __future__ import annotations
 
 import numpy as np
 import pandas as pd
-from sklearn.ensemble import HistGradientBoostingClassifier, HistGradientBoostingRegressor
+from sklearn.ensemble import (HistGradientBoostingClassifier, HistGradientBoostingRegressor,
+                              RandomForestClassifier, RandomForestRegressor)
 from sklearn.model_selection import KFold
 
+# Base learners for every meta-learner. Pass ``base=`` through any learner's
+# params: "hgb" (default), "rf" or "xgb". Each is the library's own estimator,
+# used directly: scikit-learn's HistGradientBoosting* and RandomForest*, and
+# XGBoost through its scikit-learn API (XGBRegressor / XGBClassifier). The two
+# shared regularization knobs, ``min_samples_leaf`` and ``max_leaf_nodes``, are
+# translated per family so that "regularized" means the same thing for each;
+# any other keyword is passed to the estimator unchanged and overrides defaults.
+BASE_LEARNERS = {"hgb": "HistGradientBoosting", "rf": "Random forest", "xgb": "XGBoost"}
+DEFAULT_LEAF, DEFAULT_LEAVES = 200, 15
 
-def base_regressor(seed: int = 0, **overrides) -> HistGradientBoostingRegressor:
-    params = dict(learning_rate=0.05, max_iter=300, max_leaf_nodes=15,
-                  min_samples_leaf=200, l2_regularization=1.0,
-                  early_stopping=True, validation_fraction=0.15,
-                  n_iter_no_change=20, random_state=seed)
+
+def _base(kind: str, task: str, seed: int, overrides: dict):
+    leaf = overrides.pop("min_samples_leaf", DEFAULT_LEAF)
+    leaves = overrides.pop("max_leaf_nodes", DEFAULT_LEAVES)
+    if kind == "hgb":
+        params = dict(learning_rate=0.05, max_iter=300, max_leaf_nodes=leaves,
+                      min_samples_leaf=leaf, l2_regularization=1.0,
+                      early_stopping=True, validation_fraction=0.15,
+                      n_iter_no_change=20, random_state=seed)
+        cls = HistGradientBoostingRegressor if task == "reg" else HistGradientBoostingClassifier
+    elif kind == "rf":
+        params = dict(n_estimators=300, min_samples_leaf=leaf, max_leaf_nodes=leaves * 8,
+                      max_features=0.5, max_samples=0.5, n_jobs=-1, random_state=seed)
+        cls = RandomForestRegressor if task == "reg" else RandomForestClassifier
+    elif kind == "xgb":
+        import xgboost as xgb
+
+        # For squared loss every sample has hessian 1, so min_child_weight is a minimum leaf size.
+        params = dict(n_estimators=300, learning_rate=0.05, max_depth=0, grow_policy="lossguide",
+                      max_leaves=leaves, min_child_weight=leaf, reg_lambda=1.0, subsample=0.8,
+                      colsample_bytree=0.8, tree_method="hist", n_jobs=-1, random_state=seed,
+                      verbosity=0)
+        cls = xgb.XGBRegressor if task == "reg" else xgb.XGBClassifier
+    else:
+        raise ValueError(f"unknown base learner {kind!r}; choose from {list(BASE_LEARNERS)}")
     params.update(overrides)
-    return HistGradientBoostingRegressor(**params)
+    return cls(**params)
 
 
-def base_classifier(seed: int = 0, **overrides) -> HistGradientBoostingClassifier:
-    params = dict(learning_rate=0.05, max_iter=300, max_leaf_nodes=15,
-                  min_samples_leaf=200, l2_regularization=1.0,
-                  early_stopping=True, validation_fraction=0.15,
-                  n_iter_no_change=20, random_state=seed)
-    params.update(overrides)
-    return HistGradientBoostingClassifier(**params)
+def base_regressor(seed: int = 0, base: str = "hgb", **overrides):
+    return _base(base, "reg", seed, dict(overrides))
+
+
+def base_classifier(seed: int = 0, base: str = "hgb", **overrides):
+    if base == "xgb":
+        # Hessian of log loss is p(1-p) << 1 for a 1% outcome; scale the leaf constraint accordingly.
+        overrides.setdefault("min_samples_leaf", DEFAULT_LEAF)
+        overrides["min_samples_leaf"] = max(1.0, overrides["min_samples_leaf"] * 0.01)
+    return _base(base, "clf", seed, dict(overrides))
 
 
 def _arr(X):
@@ -162,7 +195,8 @@ class DRLearner:
                  final_params: dict | None = None, **params):
         self.seed, self.propensity, self.n_folds = seed, propensity, n_folds
         self.params = params
-        self.final = base_regressor(seed + 5, **{"min_samples_leaf": 400, **(final_params or {})})
+        self.final = base_regressor(seed + 5, **{"base": params.get("base", "hgb"), "min_samples_leaf": 400,
+                                                 **(final_params or {})})
 
     def pseudo_outcomes(self, X, t, y):
         Xa, t, y = _arr(X), np.asarray(t).astype(int), np.asarray(y, float)

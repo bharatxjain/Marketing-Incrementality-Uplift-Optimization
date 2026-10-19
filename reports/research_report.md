@@ -97,6 +97,7 @@ $$\Gamma_{ik}=\hat\mu_k(X_i)-\hat\mu_0(X_i)+\frac{\mathbb 1[A_i=k](Y_i-\hat\mu_k
 | Meta-learners | S-, T-, X-learner (Künzel et al. 2019), DR-learner (Kennedy 2020), each with default and regularized base learners |
 | Forest | Causal forest (`econml.CausalForestDML`): honest, residualized, with pointwise CIs; leaf 50 and leaf 200 |
 | Structured | Calibrated propensity: τ = a + b·p(x), DR-calibrated (hypothesis) |
+| Base learners | Every meta-learner runs on Random Forest (baseline), XGBoost (primary candidate) or HistGradientBoosting (efficiency benchmark and default), via `base="rf" \| "xgb" \| "hgb"`, with leaf-size and leaf-count regularization translated per family. NB07 selects among them on nested-CV held-out policy value |
 
 ### 4.5 Optimization
 The allocation problem is to maximize $\sum_{i,k}a_{ik}(m\hat\tau_{ik}-c)$ subject to $\sum a_{ik}c\le B$ and at most one campaign per customer. With a common cost, a greedy rule is exactly optimal: give each customer their best arm, keep positive net value, and admit customers in order of net value until $B$ binds. NB04 confirms this against an exact HiGHS MILP (identical objective; 2 ms vs 13 s).
@@ -126,6 +127,18 @@ Findings:
 * **Uncertainty is large.** Bootstrap 95% intervals of AUGC overlap for every model. About 90% of individual causal-forest CATE intervals include zero.
 * **Stability:** the regularized causal forest is the most seed-stable model (rank correlation 0.96 across seeds; top-30% Jaccard 0.84). The T-learner (0.67) and DR-learner (0.60) are the least stable.
 * **The KPI matters.** Trained on visits (16× more events), T/X/forest models reach ≈ 2.5× the propensity ranking's AUGC and beat random by 5–7 standard errors. The spend difficulty is signal-to-noise, not method.
+* **Base learner matters as much as meta-learner** (NB03 §4c; a development-data sensitivity analysis added after selection was frozen). Each T-, X- and DR-learner variant was re-fitted with three base learners on the same folds:
+
+  | Base learner (mean over 4 learners) | Mean AUGC | Women's BLP | Dev profit@30% per 100k |
+  |---|---|---|---|
+  | HistGradientBoosting | +0.044 | 0.27 | $6.4k |
+  | **Random Forest** | **+0.076** | **0.57** | **$7.5k** |
+  | XGBoost | +0.042 | 0.13 | $5.8k |
+
+  * **Ranking and calibration:** Random Forest improves both. It turns the T-learner from no better than random (AUGC −0.002) into a top performer (+0.074), and gives the only meaningful Men's calibration in the project (regularized X-learner, BLP ≈ 0.4).
+  * **Why:** bagging averages many independently fitted trees, which cancels the noise of a 0.9%-buyer outcome. Boosting fits residuals sequentially and chases rare large purchases.
+  * **XGBoost caveat:** it ran a fixed 300 rounds without early stopping, which partly explains its weak calibration.
+  * **No clear winner for the decision:** on budgeted profit, the best combinations are within about $0.9k of each other, well inside one standard error (≈ $3.4k).
 * **Calibrated propensity failed.** Its two parameters are unstable across training samples, and in one Men's fold the slope turned negative, inverting the ranking. The hypothesis is rejected.
 * **Segment level vs individual level:** model segment averages track observed segment effects closely (T-learner r = 0.98) even when individual rankings are noise. Most real heterogeneity lies *between coarse segments*.
 
@@ -161,6 +174,38 @@ Every customer is used exactly once as held-out data. Frozen models are fitted o
 ### 5.5 The selection-metric lesson (NB06 §1e)
 The pre-registered AUGC criterion averaged a strong Women's ranking with a useless Men's one. Re-scoring the two finalists on **development data only**, with a decision-matched criterion (budgeted profit at 30% coverage, averaged over campaigns, plus a positive-BLP gate), selects the **causal forest**. The X-learner's Men's BLP slope of 0.004 already flagged it before any test data was seen. This analysis is post hoc and labelled as such. It is the most transferable lesson of the project: **select uplift models on the metric of the decision they will drive.**
 
+### 5.6 Base-learner study: Random Forest vs XGBoost vs HistGradientBoosting (NB07)
+
+**Question:** which regressor should power the T-learner, chosen on held-out causal-policy performance rather than reputation?
+
+| Role | Base learner | Implementation |
+|---|---|---|
+| Baseline | Random Forest | `sklearn.ensemble.RandomForestRegressor` |
+| Primary candidate | XGBoost | `xgboost.XGBRegressor` (scikit-learn API) |
+| Efficiency benchmark | HistGradientBoosting | `sklearn.ensemble.HistGradientBoostingRegressor` |
+
+**Protocol:**
+* The same 12 pre-treatment features, splits, AIPW scores and economics for every base learner.
+* An equal tuning budget: 6 configurations per learner, scored on budgeted profit.
+* Primary evaluation by **nested cross-validation over all 64,000 customers**. The configuration is chosen by inner 3-fold CV on the training part of each of 5 outer folds, so every customer is held out exactly once.
+* Winner rule, declared in advance: highest pooled held-out profit at the $3k budget, averaged over campaigns.
+
+| Held-out (nested CV), per 100k | Random Forest | XGBoost | HistGB |
+|---|---|---|---|
+| Profit @ $3k, Women's | $3.8k | $1.7k | $3.9k |
+| Profit @ $3k, Men's | −$0.9k | $1.2k | $0.5k |
+| **Profit @ $3k, mean** | $1.5k | $1.4k | **$2.2k** |
+| Profit, no budget, Women's / Men's | **$7.0k / $13.9k** | $3.7k / $8.6k | $6.3k / $12.6k |
+| Women's held-out AUGC | **+0.070** | −0.012 | +0.052 |
+| Mean fit time per T-learner | 0.81 s (7.5×) | 0.29 s (2.7×) | **0.11 s (1×)** |
+
+* **Winner: HistGradientBoosting**, but it is a statistical tie at the budget. Paired HistGB − RF = +$0.7k (95% CI −$2.4k to +$3.9k); XGBoost − RF = −$0.01k.
+* **Without a budget, Random Forest is best and XGBoost clearly worst** (−$3k to −$5k vs RF, z ≈ −1.8 to −1.9). In that setting the break-even rule depends on calibrated effect sizes, and XGBoost's dollar predictions were the least calibrated.
+* **HistGB is the most efficient** (2.7× faster than XGBoost, 7.5× faster than RF to fit, 18× faster than RF to predict) and the most tuning-stable: it picked the same leaf count in every outer fold.
+* **Why the "strongest" algorithm did not win:** a T-learner differences two models of a 0.9%-nonzero outcome, so the base learner that fits the least noise wins. Aggressive boosting without early stopping fits noise.
+* **Decision:** keep HistGB as the T-learner base learner. Prefer RF when a policy relies on break-even thresholds. Do not adopt XGBoost for this outcome without early stopping and a held-out re-test.
+* **Consistency check:** these tuned results differ from the default-settings comparison in NB03 §4c, where RF calibrated best. That shift shows the differences are small relative to noise.
+
 ## 6 · Sensitivity to the economics (NB04 §6, dashboard)
 
 * **Margin and cost:** profit rises with margin and falls with cost as expected. On the single test split, the selected policy's advantage over propensity targeting is positive or near zero for costs up to $0.20, and clearly negative at $0.30, where few contacts pay for themselves. A single split is noisy, so read this as direction, not magnitude.
@@ -188,7 +233,7 @@ The pre-registered AUGC criterion averaged a strong Women's ranking with a usele
 
 ## 9 · Reproducibility
 
-`requirements.txt` pins every package version used (Python 3.11). Seeds, split fractions, the data SHA-256 and package versions are recorded in `reports/reproducibility.json`. All reported numbers are produced by code, collected in `reports/results.json`, and regenerated by running the six notebooks in order (~15 minutes). The pytest suite (33 tests) covers the data contract, leakage, estimator correctness on synthetic data, the budget constraint, greedy-vs-MILP optimality and profit accounting.
+`requirements.txt` pins every package version used (Python 3.11). Seeds, split fractions, the data SHA-256 and package versions are recorded in `reports/reproducibility.json`. All reported numbers are produced by code, collected in `reports/results.json`, and regenerated by running the seven notebooks in order (~25 minutes). The pytest suite (54 tests) covers the data contract, leakage, estimator correctness on synthetic data for every base learner, the budget constraint, greedy-vs-MILP optimality and profit accounting.
 
 ### References
 * Hillstrom, K. (2008). *The MineThatData E-Mail Analytics and Data Mining Challenge.*

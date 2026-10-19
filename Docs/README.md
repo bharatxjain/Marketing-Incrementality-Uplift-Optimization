@@ -144,8 +144,8 @@ This formulation is a starting point. If outcomes are modeled as spend, define t
 |---|---|
 | Data analysis | Python, Pandas, NumPy |
 | Statistics | SciPy, statsmodels |
-| Machine learning | scikit-learn, XGBoost (optional) |
-| Causal inference | EconML or CausalML |
+| Machine learning | scikit-learn (RandomForest = baseline, HistGradientBoosting = efficiency benchmark), XGBoost via its scikit-learn API (primary candidate) |
+| Causal inference | EconML (`CausalForestDML`); S/T/X/DR-learners implemented in `src/models.py` on any of the three base learners |
 | Optimization | SciPy |
 | Visualization | Matplotlib, Plotly |
 | Interactive app | Streamlit |
@@ -193,16 +193,24 @@ causal-marketing-optimizer/
 ├── data/
 │   └── raw/                     # Local data; usually git-ignored
 ├── notebooks/
-│   ├── 01_data_audit.ipynb
-│   ├── 02_experimental_analysis.ipynb
-│   ├── 03_uplift_models.ipynb
-│   └── 04_policy_evaluation.ipynb
+│   ├── 01_data_understanding_experimental_analysis.ipynb
+│   ├── 02_baseline_models.ipynb
+│   ├── 03_advanced_uplift_models.ipynb
+│   ├── 04_policy_evaluation_optimization.ipynb
+│   ├── 05_interactive_dashboard.ipynb
+│   ├── 06_final_evaluation_reproducibility.ipynb
+│   └── 07_base_learner_study.ipynb
 ├── src/
+│   ├── config.py
 │   ├── data.py
 │   ├── inference.py
 │   ├── models.py
 │   ├── evaluation.py
-│   └── optimization.py
+│   ├── optimization.py
+│   ├── pipeline.py
+│   ├── scenario.py
+│   ├── benchmark.py
+│   └── plotting.py
 ├── app/
 │   └── dashboard.py
 ├── tests/
@@ -214,7 +222,7 @@ causal-marketing-optimizer/
 └── ARCHITECTURE.md
 ```
 
-This is the intended structure; files can be added incrementally as the implementation develops.
+This is the implemented structure (updated from the original plan). See the root `README.md` for results.
 
 ## 8. Getting Started
 
