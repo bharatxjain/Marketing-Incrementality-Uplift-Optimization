@@ -1,0 +1,26 @@
+{
+  "ranking_models": [
+    "Purchase propensity"
+  ],
+  "uplift_models": [
+    "T-learner",
+    "Causal forest (leaf 200)",
+    "X-learner (regularized)"
+  ],
+  "selected_model": "X-learner (regularized)",
+  "challenger_model": "Causal forest (leaf 200)",
+  "dev_ate_spend": {
+    "womens": 0.4623931765915945,
+    "mens": 0.8307544700955307
+  },
+  "n_test": 12800,
+  "margin": 0.35,
+  "cost": 0.1,
+  "budget": 3000.0,
+  "population": 100000,
+  "seed": 42,
+  "test_ate_spend": {
+    "womens": 0.2823256984580244,
+    "mens": 0.5162923973935795
+  }
+}

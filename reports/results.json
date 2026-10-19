@@ -1,0 +1,1156 @@
+{
+  "generated": "2026-10-19",
+  "selected_model": "X-learner (regularized)",
+  "challenger_model": "Causal forest (leaf 200)",
+  "assumptions": {
+    "margin": 0.35,
+    "cost_per_email": 0.1,
+    "budget_per_100k": 3000.0,
+    "population": 100000
+  },
+  "ate": {
+    "Womens E-Mail|visit": {
+      "ATE": 0.0452331065870529,
+      "ci_low": 0.0388936773634752,
+      "ci_high": 0.0515725358106306,
+      "rel_lift": 0.4260550702669102,
+      "p_holm": 9.659282808898921e-44
+    },
+    "Womens E-Mail|conversion": {
+      "ATE": 0.0031110575110852,
+      "ci_low": 0.0014986400681705,
+      "ci_high": 0.0047234749539999,
+      "rel_lift": 0.5433130436982172,
+      "p_holm": 0.0003116139132725
+    },
+    "Womens E-Mail|spend": {
+      "ATE": 0.4244122159365966,
+      "ci_low": 0.1689645072172279,
+      "ci_high": 0.6798599246559653,
+      "rel_lift": 0.6501518638646859,
+      "p_holm": 0.0011284596637324
+    },
+    "Mens E-Mail|visit": {
+      "ATE": 0.0765895636515312,
+      "ci_low": 0.0699533454848505,
+      "ci_high": 0.0832257818182119,
+      "rel_lift": 0.721404616781399,
+      "p_holm": 1.6442576098976936e-112
+    },
+    "Mens E-Mail|conversion": {
+      "ATE": 0.0068050065196156,
+      "ci_low": 0.0050001290252317,
+      "ci_high": 0.0086098840139996,
+      "rel_lift": 1.188421876286328,
+      "p_holm": 5.884837299182586e-13
+    },
+    "Mens E-Mail|spend": {
+      "ATE": 0.7698271558945367,
+      "ci_low": 0.4851491289287835,
+      "ci_high": 1.0545051828602898,
+      "rel_lift": 1.179288770362006,
+      "p_holm": 3.471410663893923e-07
+    }
+  },
+  "dev_mean_AUGC": {
+    "Purchase propensity": 0.07597016218816019,
+    "X-learner (regularized)": 0.0729828107031075,
+    "Causal forest (leaf 200)": 0.07082053390771503,
+    "Causal forest": 0.06599875276363393,
+    "X-learner": 0.05841661154542289,
+    "DR-learner": 0.04719717509517926,
+    "Calibrated propensity": 0.012998593634784627,
+    "S-learner": 0.01140489071246717,
+    "T-learner": -0.002311689829834701
+  },
+  "primary_test": {
+    "womens|No campaign": {
+      "coverage": 0.0,
+      "profit": 0.0,
+      "profit_ci_low": 0.0,
+      "profit_ci_high": 0.0,
+      "mens_share": 0.0
+    },
+    "womens|Random": {
+      "coverage": 0.3,
+      "profit": -35.58016619074322,
+      "profit_ci_low": -5319.983686751389,
+      "profit_ci_high": 5248.823354369902,
+      "mens_share": 0.0
+    },
+    "womens|Purchase propensity": {
+      "coverage": 0.3,
+      "profit": -417.559735432914,
+      "profit_ci_low": -9739.059559060228,
+      "profit_ci_high": 8903.9400881944,
+      "mens_share": 0.0
+    },
+    "womens|T-learner": {
+      "coverage": 0.3,
+      "profit": 3154.170052167061,
+      "profit_ci_low": -6154.222680175977,
+      "profit_ci_high": 12462.562784510095,
+      "mens_share": 0.0
+    },
+    "womens|Causal forest (leaf 200)": {
+      "coverage": 0.3,
+      "profit": 2632.3307992852333,
+      "profit_ci_low": -6928.269722097493,
+      "profit_ci_high": 12192.93132066796,
+      "mens_share": 0.0
+    },
+    "womens|X-learner (regularized)": {
+      "coverage": 0.3,
+      "profit": 2756.4432017078566,
+      "profit_ci_low": -6168.602962727549,
+      "profit_ci_high": 11681.489366143263,
+      "mens_share": 0.0
+    },
+    "mens|No campaign": {
+      "coverage": 0.0,
+      "profit": 0.0,
+      "profit_ci_low": 0.0,
+      "profit_ci_high": 0.0,
+      "mens_share": 0.0
+    },
+    "mens|Random": {
+      "coverage": 0.3,
+      "profit": 2421.070172632586,
+      "profit_ci_low": -3593.903188781372,
+      "profit_ci_high": 8436.043534046543,
+      "mens_share": 0.3
+    },
+    "mens|Purchase propensity": {
+      "coverage": 0.3,
+      "profit": 291.03722480658223,
+      "profit_ci_low": -10294.870827658966,
+      "profit_ci_high": 10876.94527727213,
+      "mens_share": 0.3
+    },
+    "mens|T-learner": {
+      "coverage": 0.3,
+      "profit": -4293.282778127299,
+      "profit_ci_low": -14981.789760851336,
+      "profit_ci_high": 6395.224204596736,
+      "mens_share": 0.3
+    },
+    "mens|Causal forest (leaf 200)": {
+      "coverage": 0.3,
+      "profit": -3951.591244789533,
+      "profit_ci_low": -13276.967409405435,
+      "profit_ci_high": 5373.784919826372,
+      "mens_share": 0.3
+    },
+    "mens|X-learner (regularized)": {
+      "coverage": 0.3,
+      "profit": -1648.3513694884114,
+      "profit_ci_low": -9729.756739027183,
+      "profit_ci_high": 6433.0540000503615,
+      "mens_share": 0.3
+    },
+    "best|No campaign": {
+      "coverage": 0.0,
+      "profit": 0.0,
+      "profit_ci_low": 0.0,
+      "profit_ci_high": 0.0,
+      "mens_share": 0.0
+    },
+    "best|Random": {
+      "coverage": 0.3,
+      "profit": 2421.070172632586,
+      "profit_ci_low": -3593.903188781372,
+      "profit_ci_high": 8436.043534046543,
+      "mens_share": 0.3
+    },
+    "best|Purchase propensity": {
+      "coverage": 0.3,
+      "profit": 291.03722480658223,
+      "profit_ci_low": -10294.870827658966,
+      "profit_ci_high": 10876.94527727213,
+      "mens_share": 0.3
+    },
+    "best|T-learner": {
+      "coverage": 0.3,
+      "profit": -3208.4074234983523,
+      "profit_ci_low": -14438.439153927611,
+      "profit_ci_high": 8021.624306930908,
+      "mens_share": 0.180390625
+    },
+    "best|Causal forest (leaf 200)": {
+      "coverage": 0.3,
+      "profit": -4940.808433491257,
+      "profit_ci_low": -13466.711233919736,
+      "profit_ci_high": 3585.094366937224,
+      "mens_share": 0.22796875
+    },
+    "best|X-learner (regularized)": {
+      "coverage": 0.3,
+      "profit": 377.4969476031087,
+      "profit_ci_low": -9391.430404351417,
+      "profit_ci_high": 10146.424299557635,
+      "mens_share": 0.21484375
+    }
+  },
+  "primary_paired": [
+    {
+      "A": "X-learner (regularized) [best]",
+      "B": "Purchase propensity [womens]",
+      "profit A \u2212 B per 100k": 795.056683036025,
+      "ci_low": -8662.63331691261,
+      "ci_high": 10252.74668298466,
+      "z": 0.1647635378646318
+    },
+    {
+      "A": "X-learner (regularized) [best]",
+      "B": "Purchase propensity [best]",
+      "profit A \u2212 B per 100k": 86.45972279652803,
+      "ci_low": -11552.831581142767,
+      "ci_high": 11725.751026735825,
+      "z": 0.0145591289340063
+    },
+    {
+      "A": "X-learner (regularized) [best]",
+      "B": "X-learner (regularized) [womens]",
+      "profit A \u2212 B per 100k": -2378.946254104748,
+      "ci_low": -11532.392297527464,
+      "ci_high": 6774.49978931797,
+      "z": -0.5093872796193691
+    },
+    {
+      "A": "X-learner (regularized) [best]",
+      "B": "Causal forest (leaf 200) [best]",
+      "profit A \u2212 B per 100k": 5318.305381094368,
+      "ci_low": -1843.172086089529,
+      "ci_high": 12479.782848278264,
+      "z": 1.4555218603277165
+    },
+    {
+      "A": "X-learner (regularized) [womens]",
+      "B": "Purchase propensity [womens]",
+      "profit A \u2212 B per 100k": 3174.0029371407704,
+      "ci_low": -6121.603457655165,
+      "ci_high": 12469.609331936706,
+      "z": 0.6692335259701824
+    },
+    {
+      "A": "X-learner (regularized) [best]",
+      "B": "T-learner [best]",
+      "profit A \u2212 B per 100k": 3585.904371101461,
+      "ci_low": -5550.427915149806,
+      "ci_high": 12722.236657352729,
+      "z": 0.7692631133764706
+    },
+    {
+      "A": "X-learner (regularized) [best]",
+      "B": "Random [larger-ATE campaign]",
+      "profit A \u2212 B per 100k": -2043.5732250294768,
+      "ci_low": -11374.272337643446,
+      "ci_high": 7287.1258875844915,
+      "z": -0.4292636460019832
+    }
+  ],
+  "repeated_splits": {
+    "seeds": [
+      42,
+      7,
+      11,
+      23,
+      101,
+      2024
+    ],
+    "mean_profit": {
+      "womens|Random": 1649.751936535644,
+      "womens|Purchase propensity": 4225.526813537258,
+      "womens|T-learner": 2616.204591059814,
+      "womens|Causal forest (leaf 200)": 7223.444632732426,
+      "womens|X-learner (regularized)": 4428.976716397354,
+      "mens|Random": 4935.14623998037,
+      "mens|Purchase propensity": 6361.867511948614,
+      "mens|T-learner": 3624.707097985423,
+      "mens|Causal forest (leaf 200)": 5290.185803179706,
+      "mens|X-learner (regularized)": 3667.319523139538,
+      "best|Random": 4935.14623998037,
+      "best|Purchase propensity": 6361.867511948614,
+      "best|T-learner": 1606.1857271234733,
+      "best|Causal forest (leaf 200)": 2834.696220281579,
+      "best|X-learner (regularized)": 2628.9341396403547
+    },
+    "sd_profit": {
+      "womens|Random": 2601.747790302024,
+      "womens|Purchase propensity": 3752.2620994630847,
+      "womens|T-learner": 3930.302496007881,
+      "womens|Causal forest (leaf 200)": 5564.136528136938,
+      "womens|X-learner (regularized)": 2786.7143339646104,
+      "mens|Random": 3119.966612438181,
+      "mens|Purchase propensity": 5679.793848634283,
+      "mens|T-learner": 6641.960743371572,
+      "mens|Causal forest (leaf 200)": 7628.40533016915,
+      "mens|X-learner (regularized)": 5991.374473179187,
+      "best|Random": 3119.966612438181,
+      "best|Purchase propensity": 5679.793848634283,
+      "best|T-learner": 5839.315853639784,
+      "best|Causal forest (leaf 200)": 5804.78625290752,
+      "best|X-learner (regularized)": 4411.9273640002975
+    },
+    "paired": [
+      {
+        "comparison": "X-learner (regularized) [best] \u2212 Random",
+        "mean": -2306.2121003400157,
+        "min": -7603.247311009522,
+        "max": 1860.7313005917374,
+        "share of splits > 0": 0.16666666666666666,
+        "typical within-split se": 5160.994221585528,
+        "splits with z > 1.96": 0
+      },
+      {
+        "comparison": "X-learner (regularized) [best] \u2212 Purchase propensity",
+        "mean": -3732.9333723082595,
+        "min": -9681.305449059044,
+        "max": 5122.863388701798,
+        "share of splits > 0": 0.3333333333333333,
+        "typical within-split se": 6672.563329131196,
+        "splits with z > 1.96": 0
+      },
+      {
+        "comparison": "X-learner (regularized) [best] \u2212 T-learner",
+        "mean": 1022.7484125168809,
+        "min": -4258.795933997446,
+        "max": 3585.9043711014615,
+        "share of splits > 0": 0.6666666666666666,
+        "typical within-split se": 5692.2083664455995,
+        "splits with z > 1.96": 0
+      },
+      {
+        "comparison": "X-learner (regularized) [best] \u2212 Causal forest (leaf 200)",
+        "mean": -205.76208064122332,
+        "min": -8331.948373618126,
+        "max": 5318.3053810943675,
+        "share of splits > 0": 0.5,
+        "typical within-split se": 5698.666949283713,
+        "splits with z > 1.96": 0
+      }
+    ]
+  },
+  "crossfit": [
+    {
+      "scenario": "$3k budget",
+      "option": "Best campaign per customer",
+      "policy": "Random",
+      "profit": 5130.6296577994335,
+      "ci_low": 2139.1719590024477,
+      "ci_high": 8122.087356596419,
+      "selected \u2212 this": -5411.723307278941,
+      "diff_ci_low": -10462.798377703495,
+      "diff_ci_high": -360.6482368543884,
+      "z": -2.099905986087669
+    },
+    {
+      "scenario": "$3k budget",
+      "option": "Best campaign per customer",
+      "policy": "Purchase propensity",
+      "profit": 7059.019945116657,
+      "ci_low": 517.5485300063787,
+      "ci_high": 13600.491360226935,
+      "selected \u2212 this": -7340.113594596162,
+      "diff_ci_low": -14215.329688837446,
+      "diff_ci_high": -464.8975003548786,
+      "z": -2.0924954344186215
+    },
+    {
+      "scenario": "$3k budget",
+      "option": "Best campaign per customer",
+      "policy": "T-learner",
+      "profit": 1404.047067031188,
+      "ci_low": -4624.225407343367,
+      "ci_high": 7432.319541405742,
+      "selected \u2212 this": -1685.1407165106937,
+      "diff_ci_low": -6644.976648362,
+      "diff_ci_high": 3274.695215340612,
+      "z": -0.6659121710121113
+    },
+    {
+      "scenario": "$3k budget",
+      "option": "Best campaign per customer",
+      "policy": "Causal forest (leaf 200)",
+      "profit": 4777.315602894834,
+      "ci_low": -1501.2645848285877,
+      "ci_high": 11055.895790618257,
+      "selected \u2212 this": -5058.409252374341,
+      "diff_ci_low": -9211.708390835416,
+      "diff_ci_high": -905.1101139132649,
+      "z": -2.387090268049279
+    },
+    {
+      "scenario": "$3k budget",
+      "option": "Best campaign per customer",
+      "policy": "X-learner (regularized)",
+      "profit": -281.09364947950763,
+      "ci_low": -5876.51616488676,
+      "ci_high": 5314.328865927745,
+      "selected \u2212 this": NaN,
+      "diff_ci_low": NaN,
+      "diff_ci_high": NaN,
+      "z": NaN
+    },
+    {
+      "scenario": "$3k budget",
+      "option": "Men's e-mail only",
+      "policy": "Random",
+      "profit": 5130.6296577994335,
+      "ci_low": 2139.1719590024477,
+      "ci_high": 8122.087356596419,
+      "selected \u2212 this": -6374.6379093954465,
+      "diff_ci_low": -10738.235081338029,
+      "diff_ci_high": -2011.040737452864,
+      "z": -2.863247963683294
+    },
+    {
+      "scenario": "$3k budget",
+      "option": "Men's e-mail only",
+      "policy": "Purchase propensity",
+      "profit": 7059.019945116657,
+      "ci_low": 517.5485300063787,
+      "ci_high": 13600.491360226935,
+      "selected \u2212 this": -8303.02819671267,
+      "diff_ci_low": -14337.889282076003,
+      "diff_ci_high": -2268.1671113493394,
+      "z": -2.696604942182795
+    },
+    {
+      "scenario": "$3k budget",
+      "option": "Men's e-mail only",
+      "policy": "T-learner",
+      "profit": 3398.6670996749167,
+      "ci_low": -2920.496143464392,
+      "ci_high": 9717.830342814224,
+      "selected \u2212 this": -4642.67535127093,
+      "diff_ci_low": -10189.144442206927,
+      "diff_ci_high": 903.7937396650659,
+      "z": -1.640589054263941
+    },
+    {
+      "scenario": "$3k budget",
+      "option": "Men's e-mail only",
+      "policy": "Causal forest (leaf 200)",
+      "profit": 6649.936091558914,
+      "ci_low": 375.5513109317182,
+      "ci_high": 12924.32087218611,
+      "selected \u2212 this": -7893.94434315493,
+      "diff_ci_low": -12069.988082107886,
+      "diff_ci_high": -3717.9006042019723,
+      "z": -3.704905306481907
+    },
+    {
+      "scenario": "$3k budget",
+      "option": "Men's e-mail only",
+      "policy": "X-learner (regularized)",
+      "profit": -1244.0082515960128,
+      "ci_low": -6267.200229258371,
+      "ci_high": 3779.1837260663465,
+      "selected \u2212 this": NaN,
+      "diff_ci_low": NaN,
+      "diff_ci_high": NaN,
+      "z": NaN
+    },
+    {
+      "scenario": "$3k budget",
+      "option": "Women's e-mail only",
+      "policy": "Random",
+      "profit": 1468.5477112614064,
+      "ci_low": -1216.1803988073357,
+      "ci_high": 4153.275821330149,
+      "selected \u2212 this": 2505.658404759634,
+      "diff_ci_low": -1988.827228386013,
+      "diff_ci_high": 7000.144037905282,
+      "z": 1.0926723615871936
+    },
+    {
+      "scenario": "$3k budget",
+      "option": "Women's e-mail only",
+      "policy": "Purchase propensity",
+      "profit": 2213.695916540358,
+      "ci_low": -3120.467898755629,
+      "ci_high": 7547.859731836345,
+      "selected \u2212 this": 1760.5101994806807,
+      "diff_ci_low": -3001.8459281613464,
+      "diff_ci_high": 6522.866327122708,
+      "z": 0.7245440057222297
+    },
+    {
+      "scenario": "$3k budget",
+      "option": "Women's e-mail only",
+      "policy": "T-learner",
+      "profit": 4531.129083268037,
+      "ci_low": -853.7790851462196,
+      "ci_high": 9916.037251682294,
+      "selected \u2212 this": -556.9229672469959,
+      "diff_ci_low": -4696.361218248233,
+      "diff_ci_high": 3582.5152837542414,
+      "z": -0.2636949488745896
+    },
+    {
+      "scenario": "$3k budget",
+      "option": "Women's e-mail only",
+      "policy": "Causal forest (leaf 200)",
+      "profit": 8481.721729184865,
+      "ci_low": 2477.250791374697,
+      "ci_high": 14486.192666995032,
+      "selected \u2212 this": -4507.515613163827,
+      "diff_ci_low": -8997.404007564513,
+      "diff_ci_high": -17.627218763139467,
+      "z": -1.9676587668795098
+    },
+    {
+      "scenario": "$3k budget",
+      "option": "Women's e-mail only",
+      "policy": "X-learner (regularized)",
+      "profit": 3974.2061160210396,
+      "ci_low": -1725.0272243943161,
+      "ci_high": 9673.439456436394,
+      "selected \u2212 this": NaN,
+      "diff_ci_low": NaN,
+      "diff_ci_high": NaN,
+      "z": NaN
+    },
+    {
+      "scenario": "no budget",
+      "option": "Best campaign per customer",
+      "policy": "Treat all",
+      "profit": 17102.098859331447,
+      "ci_low": 7130.573196674829,
+      "ci_high": 27073.624521988066,
+      "selected \u2212 this": -2295.5560470596865,
+      "diff_ci_low": -8262.769205617216,
+      "diff_ci_high": 3671.6571114978433,
+      "z": -0.7539880103458084
+    },
+    {
+      "scenario": "no budget",
+      "option": "Best campaign per customer",
+      "policy": "Purchase propensity",
+      "profit": 16177.638482012435,
+      "ci_low": 6406.389814570589,
+      "ci_high": 25948.88714945428,
+      "selected \u2212 this": -1371.0956697406764,
+      "diff_ci_low": -7560.369093927834,
+      "diff_ci_high": 4818.17775444648,
+      "z": -0.43418636532501803
+    },
+    {
+      "scenario": "no budget",
+      "option": "Best campaign per customer",
+      "policy": "T-learner",
+      "profit": 14004.274021389956,
+      "ci_low": 4788.359334738071,
+      "ci_high": 23220.188708041842,
+      "selected \u2212 this": 802.2687908818021,
+      "diff_ci_low": -5041.643857235944,
+      "diff_ci_high": 6646.181438999549,
+      "z": 0.26906937709879786
+    },
+    {
+      "scenario": "no budget",
+      "option": "Best campaign per customer",
+      "policy": "Causal forest (leaf 200)",
+      "profit": 13194.465927006086,
+      "ci_low": 3756.3351899445793,
+      "ci_high": 22632.59666406759,
+      "selected \u2212 this": 1612.0768852656713,
+      "diff_ci_low": -3760.6671021953116,
+      "diff_ci_high": 6984.820872726654,
+      "z": 0.5880817405043293
+    },
+    {
+      "scenario": "no budget",
+      "option": "Best campaign per customer",
+      "policy": "X-learner (regularized)",
+      "profit": 14806.542812271755,
+      "ci_low": 5212.686861946944,
+      "ci_high": 24400.398762596567,
+      "selected \u2212 this": NaN,
+      "diff_ci_low": NaN,
+      "diff_ci_high": NaN,
+      "z": NaN
+    },
+    {
+      "scenario": "no budget",
+      "option": "Men's e-mail only",
+      "policy": "Treat all",
+      "profit": 17102.098859331447,
+      "ci_low": 7130.573196674829,
+      "ci_high": 27073.624521988066,
+      "selected \u2212 this": -445.8339414519999,
+      "diff_ci_low": -3046.6238555042537,
+      "diff_ci_high": 2154.9559726002535,
+      "z": -0.3359819505643864
+    },
+    {
+      "scenario": "no budget",
+      "option": "Men's e-mail only",
+      "policy": "Purchase propensity",
+      "profit": 15408.941443659704,
+      "ci_low": 5665.949583499424,
+      "ci_high": 25151.933303819984,
+      "selected \u2212 this": 1247.3234742197374,
+      "diff_ci_low": -1895.3988101351051,
+      "diff_ci_high": 4390.04575857458,
+      "z": 0.7778953612008148
+    },
+    {
+      "scenario": "no budget",
+      "option": "Men's e-mail only",
+      "policy": "T-learner",
+      "profit": 14076.041716154668,
+      "ci_low": 4973.301626717827,
+      "ci_high": 23178.781805591512,
+      "selected \u2212 this": 2580.2232017247793,
+      "diff_ci_low": -1491.292630471562,
+      "diff_ci_high": 6651.739033921121,
+      "z": 1.2420790575010892
+    },
+    {
+      "scenario": "no budget",
+      "option": "Men's e-mail only",
+      "policy": "Causal forest (leaf 200)",
+      "profit": 15439.963313786731,
+      "ci_low": 5923.29426134838,
+      "ci_high": 24956.632366225083,
+      "selected \u2212 this": 1216.301604092714,
+      "diff_ci_low": -1893.3092307680358,
+      "diff_ci_high": 4325.912438953464,
+      "z": 0.7666256213269104
+    },
+    {
+      "scenario": "no budget",
+      "option": "Men's e-mail only",
+      "policy": "X-learner (regularized)",
+      "profit": 16656.264917879445,
+      "ci_low": 7029.837370349905,
+      "ci_high": 26282.692465408985,
+      "selected \u2212 this": NaN,
+      "diff_ci_low": NaN,
+      "diff_ci_high": NaN,
+      "z": NaN
+    },
+    {
+      "scenario": "no budget",
+      "option": "Women's e-mail only",
+      "policy": "Treat all",
+      "profit": 4895.159037538022,
+      "ci_low": -4053.9346626911192,
+      "ci_high": 13844.252737767163,
+      "selected \u2212 this": 495.6606562707698,
+      "diff_ci_low": -4615.23794363051,
+      "diff_ci_high": 5606.559256172049,
+      "z": 0.19007949695244608
+    },
+    {
+      "scenario": "no budget",
+      "option": "Women's e-mail only",
+      "policy": "Purchase propensity",
+      "profit": 4004.009653152546,
+      "ci_low": -3791.343414974327,
+      "ci_high": 11799.362721279418,
+      "selected \u2212 this": 1386.8100406562444,
+      "diff_ci_low": -2764.274398451405,
+      "diff_ci_high": 5537.894479763894,
+      "z": 0.6547922050145217
+    },
+    {
+      "scenario": "no budget",
+      "option": "Women's e-mail only",
+      "policy": "T-learner",
+      "profit": 5889.662597980488,
+      "ci_low": -1242.2320316561256,
+      "ci_high": 13021.5572276171,
+      "selected \u2212 this": -498.8429041716985,
+      "diff_ci_low": -5317.660434836731,
+      "diff_ci_high": 4319.974626493334,
+      "z": -0.20289502972422424
+    },
+    {
+      "scenario": "no budget",
+      "option": "Women's e-mail only",
+      "policy": "Causal forest (leaf 200)",
+      "profit": 7431.382248810753,
+      "ci_low": 111.39544929185536,
+      "ci_high": 14751.369048329649,
+      "selected \u2212 this": -2040.5625550019645,
+      "diff_ci_low": -4880.848775811665,
+      "diff_ci_high": 799.7236658077358,
+      "z": -1.4081077768510029
+    },
+    {
+      "scenario": "no budget",
+      "option": "Women's e-mail only",
+      "policy": "X-learner (regularized)",
+      "profit": 5390.819693808789,
+      "ci_low": -1955.2454289706463,
+      "ci_high": 12736.884816588223,
+      "selected \u2212 this": NaN,
+      "diff_ci_low": NaN,
+      "diff_ci_high": NaN,
+      "z": NaN
+    }
+  ],
+  "crossfit_paired": [
+    {
+      "scenario": "$3k budget",
+      "option": "Women's e-mail only",
+      "comparison": "Causal forest (leaf 200) \u2212 Random",
+      "diff": 7013.174017923461,
+      "ci_low": 2362.5678250841197,
+      "ci_high": 11663.780210762803,
+      "z": 2.9556509243045466
+    },
+    {
+      "scenario": "$3k budget",
+      "option": "Women's e-mail only",
+      "comparison": "Causal forest (leaf 200) \u2212 Purchase propensity",
+      "diff": 6268.025812644507,
+      "ci_low": 608.4387940714523,
+      "ci_high": 11927.61283121756,
+      "z": 2.1706716067152314
+    },
+    {
+      "scenario": "$3k budget",
+      "option": "Women's e-mail only",
+      "comparison": "X-learner (regularized) \u2212 Random",
+      "diff": 2505.658404759634,
+      "ci_low": -1988.827228386013,
+      "ci_high": 7000.144037905282,
+      "z": 1.0926723615871936
+    },
+    {
+      "scenario": "$3k budget",
+      "option": "Women's e-mail only",
+      "comparison": "X-learner (regularized) \u2212 Purchase propensity",
+      "diff": 1760.5101994806807,
+      "ci_low": -3001.8459281613464,
+      "ci_high": 6522.866327122708,
+      "z": 0.7245440057222297
+    },
+    {
+      "scenario": "no budget",
+      "option": "Women's e-mail only",
+      "comparison": "Causal forest (leaf 200) \u2212 Treat all",
+      "diff": 2536.2232112727324,
+      "ci_low": -2611.7675325485275,
+      "ci_high": 7684.213955093992,
+      "z": 0.9656012215669336
+    },
+    {
+      "scenario": "no budget",
+      "option": "Women's e-mail only",
+      "comparison": "Causal forest (leaf 200) \u2212 Purchase propensity",
+      "diff": 3427.3725956582084,
+      "ci_low": -1260.9959050911425,
+      "ci_high": 8115.741096407558,
+      "z": 1.4328069237765704
+    },
+    {
+      "scenario": "no budget",
+      "option": "Women's e-mail only",
+      "comparison": "X-learner (regularized) \u2212 Treat all",
+      "diff": 495.6606562707698,
+      "ci_low": -4615.23794363051,
+      "ci_high": 5606.559256172049,
+      "z": 0.19007949695244608
+    },
+    {
+      "scenario": "no budget",
+      "option": "Women's e-mail only",
+      "comparison": "X-learner (regularized) \u2212 Purchase propensity",
+      "diff": 1386.8100406562444,
+      "ci_low": -2764.274398451405,
+      "ci_high": 5537.894479763894,
+      "z": 0.6547922050145217
+    },
+    {
+      "scenario": "$3k budget",
+      "option": "Men's e-mail only",
+      "comparison": "Causal forest (leaf 200) \u2212 Random",
+      "diff": 1519.3064337594815,
+      "ci_low": -3450.450514750986,
+      "ci_high": 6489.063382269948,
+      "z": 0.5991813930741772
+    },
+    {
+      "scenario": "$3k budget",
+      "option": "Men's e-mail only",
+      "comparison": "Causal forest (leaf 200) \u2212 Purchase propensity",
+      "diff": -409.0838535577417,
+      "ci_low": -5868.953536763568,
+      "ci_high": 5050.785829648085,
+      "z": -0.14685142066600593
+    },
+    {
+      "scenario": "$3k budget",
+      "option": "Men's e-mail only",
+      "comparison": "X-learner (regularized) \u2212 Random",
+      "diff": -6374.6379093954465,
+      "ci_low": -10738.235081338029,
+      "ci_high": -2011.040737452864,
+      "z": -2.863247963683294
+    },
+    {
+      "scenario": "$3k budget",
+      "option": "Men's e-mail only",
+      "comparison": "X-learner (regularized) \u2212 Purchase propensity",
+      "diff": -8303.02819671267,
+      "ci_low": -14337.889282076003,
+      "ci_high": -2268.1671113493394,
+      "z": -2.696604942182795
+    },
+    {
+      "scenario": "no budget",
+      "option": "Men's e-mail only",
+      "comparison": "Causal forest (leaf 200) \u2212 Treat all",
+      "diff": -1662.1355455447142,
+      "ci_low": -4639.956057745492,
+      "ci_high": 1315.6849666560643,
+      "z": -1.093996697700168
+    },
+    {
+      "scenario": "no budget",
+      "option": "Men's e-mail only",
+      "comparison": "Causal forest (leaf 200) \u2212 Purchase propensity",
+      "diff": 31.021870127022936,
+      "ci_low": -3492.602048355336,
+      "ci_high": 3554.645788609382,
+      "z": 0.01725545903554643
+    },
+    {
+      "scenario": "no budget",
+      "option": "Men's e-mail only",
+      "comparison": "X-learner (regularized) \u2212 Treat all",
+      "diff": -445.8339414519999,
+      "ci_low": -3046.6238555042537,
+      "ci_high": 2154.9559726002535,
+      "z": -0.3359819505643864
+    },
+    {
+      "scenario": "no budget",
+      "option": "Men's e-mail only",
+      "comparison": "X-learner (regularized) \u2212 Purchase propensity",
+      "diff": 1247.3234742197374,
+      "ci_low": -1895.3988101351051,
+      "ci_high": 4390.04575857458,
+      "z": 0.7778953612008148
+    },
+    {
+      "scenario": "$3k budget",
+      "option": "Best campaign per customer",
+      "comparison": "Causal forest (leaf 200) \u2212 Random",
+      "diff": -353.3140549045984,
+      "ci_low": -5616.464921690383,
+      "ci_high": 4909.836811881185,
+      "z": -0.1315719120298979
+    },
+    {
+      "scenario": "$3k budget",
+      "option": "Best campaign per customer",
+      "comparison": "Causal forest (leaf 200) \u2212 Purchase propensity",
+      "diff": -2281.704342221821,
+      "ci_low": -8836.63161580491,
+      "ci_high": 4273.222931361267,
+      "z": -0.6822437759372552
+    },
+    {
+      "scenario": "$3k budget",
+      "option": "Best campaign per customer",
+      "comparison": "X-learner (regularized) \u2212 Random",
+      "diff": -5411.723307278941,
+      "ci_low": -10462.798377703495,
+      "ci_high": -360.6482368543884,
+      "z": -2.099905986087669
+    },
+    {
+      "scenario": "$3k budget",
+      "option": "Best campaign per customer",
+      "comparison": "X-learner (regularized) \u2212 Purchase propensity",
+      "diff": -7340.113594596162,
+      "ci_low": -14215.329688837446,
+      "ci_high": -464.8975003548786,
+      "z": -2.0924954344186215
+    },
+    {
+      "scenario": "no budget",
+      "option": "Best campaign per customer",
+      "comparison": "Causal forest (leaf 200) \u2212 Treat all",
+      "diff": -3907.632932325359,
+      "ci_low": -9764.299843489818,
+      "ci_high": 1949.0339788391007,
+      "z": -1.3077096458329351
+    },
+    {
+      "scenario": "no budget",
+      "option": "Best campaign per customer",
+      "comparison": "Causal forest (leaf 200) \u2212 Purchase propensity",
+      "diff": -2983.1725550063484,
+      "ci_low": -8921.150404313868,
+      "ci_high": 2954.8052943011717,
+      "z": -0.9846636204886882
+    },
+    {
+      "scenario": "no budget",
+      "option": "Best campaign per customer",
+      "comparison": "X-learner (regularized) \u2212 Treat all",
+      "diff": -2295.5560470596865,
+      "ci_low": -8262.769205617216,
+      "ci_high": 3671.6571114978433,
+      "z": -0.7539880103458084
+    },
+    {
+      "scenario": "no budget",
+      "option": "Best campaign per customer",
+      "comparison": "X-learner (regularized) \u2212 Purchase propensity",
+      "diff": -1371.0956697406764,
+      "ci_low": -7560.369093927834,
+      "ci_high": 4818.17775444648,
+      "z": -0.43418636532501803
+    }
+  ],
+  "recommended_model": "Causal forest (leaf 200)",
+  "posthoc_selection": [
+    {
+      "model": "X-learner (regularized)",
+      "dev AUGC (pre-registered)": 0.0729828107031075,
+      "dev profit@30% mens": 6975.465763385938,
+      "dev BLP mens": 0.003774426781800483,
+      "dev profit@30% womens": 9070.915205921716,
+      "dev BLP womens": 0.6889913903353294,
+      "dev profit@30% mean": 8023.190484653827
+    },
+    {
+      "model": "Causal forest (leaf 200)",
+      "dev AUGC (pre-registered)": 0.07082053390771503,
+      "dev profit@30% mens": 11227.711918913097,
+      "dev BLP mens": 0.3108249094396256,
+      "dev profit@30% womens": 7928.707659349049,
+      "dev BLP womens": 0.7899364888122931,
+      "dev profit@30% mean": 9578.209789131073
+    },
+    {
+      "model": "Purchase propensity",
+      "dev AUGC (pre-registered)": 0.07597016218816019,
+      "dev profit@30% mens": 8268.798890162001,
+      "dev BLP mens": NaN,
+      "dev profit@30% womens": 5597.247717250428,
+      "dev BLP womens": NaN,
+      "dev profit@30% mean": 6933.023303706214
+    }
+  ],
+  "test_no_budget": [
+    {
+      "option": "Women's e-mail only",
+      "policy": "Treat all",
+      "coverage": 1.0,
+      "profit per 100k": -118.60055396914991,
+      "vs treat all": NaN,
+      "vs treat all CI": NaN,
+      "vs propensity @ same coverage": NaN,
+      "vs propensity CI": NaN
+    },
+    {
+      "option": "Women's e-mail only",
+      "policy": "T-learner",
+      "coverage": 0.52546875,
+      "profit per 100k": 6027.4185146432665,
+      "vs treat all": 6146.019068612412,
+      "vs treat all CI": "\u2212$7,299 to $19,591",
+      "vs propensity @ same coverage": 5894.454047107954,
+      "vs propensity CI": "\u2212$2,769 to $14,558"
+    },
+    {
+      "option": "Women's e-mail only",
+      "policy": "Causal forest (leaf 200)",
+      "coverage": 0.614609375,
+      "profit per 100k": 8388.506370344867,
+      "vs treat all": 8507.106924314012,
+      "vs treat all CI": "\u2212$3,646 to $20,660",
+      "vs propensity @ same coverage": 7150.08963969221,
+      "vs propensity CI": "\u2212$2,946 to $17,246"
+    },
+    {
+      "option": "Women's e-mail only",
+      "policy": "X-learner (regularized)",
+      "coverage": 0.688359375,
+      "profit per 100k": 7673.712239384447,
+      "vs treat all": 7792.312793353595,
+      "vs treat all CI": "\u2212$3,334 to $18,918",
+      "vs propensity @ same coverage": 9333.316002057856,
+      "vs propensity CI": "\u2212$1,110 to $19,776"
+    },
+    {
+      "option": "Men's e-mail only",
+      "policy": "Treat all",
+      "coverage": 1.0,
+      "profit per 100k": 8070.233908775281,
+      "vs treat all": NaN,
+      "vs treat all CI": NaN,
+      "vs propensity @ same coverage": NaN,
+      "vs propensity CI": NaN
+    },
+    {
+      "option": "Men's e-mail only",
+      "policy": "T-learner",
+      "coverage": 0.807265625,
+      "profit per 100k": 3898.132950951169,
+      "vs treat all": -4172.100957824114,
+      "vs treat all CI": "\u2212$11,800 to $3,456",
+      "vs propensity @ same coverage": -2485.069265118118,
+      "vs propensity CI": "\u2212$12,646 to $7,676"
+    },
+    {
+      "option": "Men's e-mail only",
+      "policy": "Causal forest (leaf 200)",
+      "coverage": 0.902890625,
+      "profit per 100k": 4283.317252823208,
+      "vs treat all": -3786.9166559520754,
+      "vs treat all CI": "\u2212$11,264 to $3,690",
+      "vs propensity @ same coverage": -630.173947473505,
+      "vs propensity CI": "\u2212$10,144 to $8,884"
+    },
+    {
+      "option": "Men's e-mail only",
+      "policy": "X-learner (regularized)",
+      "coverage": 0.935390625,
+      "profit per 100k": 4329.932773584877,
+      "vs treat all": -3740.3011351904047,
+      "vs treat all CI": "\u2212$8,137 to $657",
+      "vs propensity @ same coverage": -350.88053440220904,
+      "vs propensity CI": "\u2212$7,681 to $6,979"
+    },
+    {
+      "option": "Best campaign per customer",
+      "policy": "Treat all",
+      "coverage": 1.0,
+      "profit per 100k": 8070.233908775281,
+      "vs treat all": NaN,
+      "vs treat all CI": NaN,
+      "vs propensity @ same coverage": NaN,
+      "vs propensity CI": NaN
+    },
+    {
+      "option": "Best campaign per customer",
+      "policy": "T-learner",
+      "coverage": 0.86125,
+      "profit per 100k": 2212.4239630991606,
+      "vs treat all": -5857.809945676124,
+      "vs treat all CI": "\u2212$18,734 to $7,018",
+      "vs propensity @ same coverage": -3199.3384387753053,
+      "vs propensity CI": "\u2212$14,746 to $8,348"
+    },
+    {
+      "option": "Best campaign per customer",
+      "policy": "Causal forest (leaf 200)",
+      "coverage": 0.960546875,
+      "profit per 100k": -396.26195095591663,
+      "vs treat all": -8466.495859731202,
+      "vs treat all CI": "\u2212$21,335 to $4,402",
+      "vs propensity @ same coverage": -5321.475770167992,
+      "vs propensity CI": "\u2212$16,802 to $6,159"
+    },
+    {
+      "option": "Best campaign per customer",
+      "policy": "X-learner (regularized)",
+      "coverage": 0.9578125,
+      "profit per 100k": 6518.548498985809,
+      "vs treat all": -1551.6854097894734,
+      "vs treat all CI": "\u2212$12,597 to $9,494",
+      "vs propensity @ same coverage": 1622.6340562646903,
+      "vs propensity CI": "\u2212$7,770 to $11,015"
+    }
+  ],
+  "test_ranking": [
+    {
+      "campaign": "womens",
+      "model": "Purchase propensity",
+      "AUGC": -0.0368491084960978,
+      "gain@30%": 0.0737840075590595,
+      "gain@30%_se": 0.1358879749672833,
+      "vs_random": -0.0109137019783477,
+      "vs_random_se": 0.1154170863095142,
+      "BLP_slope": -38.63197611124957,
+      "Qini_coef": -0.0185035639596766
+    },
+    {
+      "campaign": "womens",
+      "model": "T-learner",
+      "AUGC": 0.0573478073412758,
+      "gain@30%": 0.1754406363022335,
+      "gain@30%_se": 0.135709104952339,
+      "vs_random": 0.0907429267648262,
+      "vs_random_se": 0.1153335568108533,
+      "BLP_slope": 0.0494652319685759,
+      "Qini_coef": 0.0301533190571303
+    },
+    {
+      "campaign": "womens",
+      "model": "X-learner (regularized)",
+      "AUGC": 0.1190498334563926,
+      "gain@30%": 0.1641197399267148,
+      "gain@30%_se": 0.1301198226788354,
+      "vs_random": 0.0794220303893074,
+      "vs_random_se": 0.1127277363224054,
+      "BLP_slope": 0.8088978912709247,
+      "Qini_coef": 0.0589701359032134
+    },
+    {
+      "campaign": "womens",
+      "model": "Causal forest (leaf 200)",
+      "AUGC": 0.1172367654784894,
+      "gain@30%": 0.1609237371224352,
+      "gain@30%_se": 0.1393831525477493,
+      "vs_random": 0.0762260275850279,
+      "vs_random_se": 0.1170732545059188,
+      "BLP_slope": 0.9275319423865848,
+      "Qini_coef": 0.059023009892171
+    },
+    {
+      "campaign": "mens",
+      "model": "Purchase propensity",
+      "AUGC": -0.0311524489930254,
+      "gain@30%": 0.0940296349944738,
+      "gain@30%_se": 0.1543215457488966,
+      "vs_random": -0.0608580842236001,
+      "vs_random_se": 0.1312109085790553,
+      "BLP_slope": -7.859421732011893,
+      "Qini_coef": -0.0154042076684233
+    },
+    {
+      "campaign": "mens",
+      "model": "T-learner",
+      "AUGC": -0.1263731187259952,
+      "gain@30%": -0.0369151808140948,
+      "gain@30%_se": 0.155804078226199,
+      "vs_random": -0.1918029000321687,
+      "vs_random_se": 0.1318991750618338,
+      "BLP_slope": -0.5267596067838152,
+      "Qini_coef": -0.0637527702860946
+    },
+    {
+      "campaign": "mens",
+      "model": "X-learner (regularized)",
+      "AUGC": -0.0968080362521981,
+      "gain@30%": 0.0386185323003311,
+      "gain@30%_se": 0.1178063455038753,
+      "vs_random": -0.1162691869177427,
+      "vs_random_se": 0.1150677374417867,
+      "BLP_slope": -0.8230185340657612,
+      "Qini_coef": -0.048231834956418
+    },
+    {
+      "campaign": "mens",
+      "model": "Causal forest (leaf 200)",
+      "AUGC": -0.0776181891973989,
+      "gain@30%": -0.0271883212797009,
+      "gain@30%_se": 0.1359328741346825,
+      "vs_random": -0.1820760404977747,
+      "vs_random_se": 0.1227957296635784,
+      "BLP_slope": -0.7083719275538979,
+      "Qini_coef": -0.0372139565571434
+    }
+  ]
+}
